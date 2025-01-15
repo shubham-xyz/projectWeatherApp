@@ -35,46 +35,63 @@ console.log(response)
     }
 }
 
-function displayWeather(data){
-    const {resolvedAddress, currentConditions, days, description } = data
-    const today = days[0]
+function displayWeather(data) {
+  const { resolvedAddress, currentConditions, days, description } = data;
 
-    weatherDisplay.innerHTML = `
-    <h2>Weather in ${resolvedAddress}</h2>
-    <p><strong>Condition:</strong> ${today.conditions}</p>
-    <p><strong>Temperature:</strong> ${today.temp} °C</p>
-    <p><strong>Humidity:</strong> ${today.humidity} %</p>
-    <p><strong>Wind Speed:</strong> ${today.windspeed} km/h</p>
-
+  weatherDisplay.innerHTML = `
     <h2>Weather in ${resolvedAddress}</h2>
     <p><strong>Description:</strong> ${description}</p>
-    <p><strong>Current Condition:</strong> ${today.conditions}</p>
-    <p><strong>Temperature:</strong> ${today.temp} °C</p>
-    <p><strong>Humidity:</strong> ${today.humidity} %</p>
-    <p><strong>Wind Speed:</strong> ${today.windspeed} km/h</p>
-    <p><strong>UV Index:</strong> ${today.uvindex}</p>
-    <p><strong>Visibility:</strong> ${today.visibility} km</p>
-    <p><strong>Sunrise:</strong> ${today.sunrise}</p>
-    <p><strong>Sunset:</strong> ${today.sunset}</p>
+    ${generateCurrentWeatherHTML(currentConditions)}
     <hr>
     <h3>Next 7-Day Forecast</h3>
-    ${generateForecastHTML(days)}
+    <div id="forecastContainer" class="forecast-container">
+      ${generateForecastHTML(days)}
+    </div>
   `;
-  updateBackground(today.conditions);
+  updateBackground(currentConditions.conditions);
+}
 
-  function generateForecastHTML(days) {
-    // Generate a forecast for the next 7 days
-    return days.slice(0, 7).map(day => `
-      <div style="margin-bottom: 10px;">
-        <p><strong>Date:</strong> ${day.datetime}</p>
-        <p><strong>Condition:</strong> ${day.conditions}</p>
-        <p><strong>Max Temp:</strong> ${day.tempmax} °C</p>
-        <p><strong>Min Temp:</strong> ${day.tempmin} °C</p>
-        <p><strong>Humidity:</strong> ${day.humidity} %</p>
-      </div>
-    `).join('');
+function generateCurrentWeatherHTML(current) {
+  return `
+    <h3>Current Weather</h3>
+    <p><strong>Condition:</strong> ${current.conditions}</p>
+    <p><strong>Temperature:</strong> ${current.temp} °C</p>
+    <p><strong>Feels Like:</strong> ${current.feelslike} °C</p>
+    <p><strong>Humidity:</strong> ${current.humidity} %</p>
+    <p><strong>Wind Speed:</strong> ${current.windspeed} km/h</p>
+    <p><strong>Wind Direction:</strong> ${current.winddir}°</p>
+    <p><strong>Pressure:</strong> ${current.pressure} hPa</p>
+    <p><strong>Visibility:</strong> ${current.visibility} km</p>
+    <p><strong>UV Index:</strong> ${current.uvindex}</p>
+    <p><strong>Sunrise:</strong> ${current.sunrise}</p>
+    <p><strong>Sunset:</strong> ${current.sunset}</p>
+  `;
 }
+
+function generateForecastHTML(days) {
+  return days.slice(0, 7).map(day => `
+    <div class="forecast-card">
+      <h4>${day.datetime}</h4>
+      <p><strong>Condition:</strong> ${day.conditions}</p>
+      <p><strong>Max Temp:</strong> ${day.tempmax} °C</p>
+      <p><strong>Min Temp:</strong> ${day.tempmin} °C</p>
+      <p><strong>Avg Temp:</strong> ${day.temp} °C</p>
+      <p><strong>Humidity:</strong> ${day.humidity} %</p>
+      <p><strong>Wind Speed:</strong> ${day.windspeed} km/h</p>
+      <p><strong>Wind Gust:</strong> ${day.windgust} km/h</p>
+      <p><strong>Wind Direction:</strong> ${day.winddir}°</p>
+      <p><strong>Precipitation:</strong> ${day.precip} mm</p>
+      <p><strong>Precipitation Probability:</strong> ${day.precipprob} %</p>
+      <p><strong>Snow:</strong> ${day.snow} mm</p>
+      <p><strong>Solar Radiation:</strong> ${day.solarradiation} W/m²</p>
+      <p><strong>UV Index:</strong> ${day.uvindex}</p>
+      <p><strong>Moon Phase:</strong> ${day.moonphase}</p>
+      <p><strong>Sunrise:</strong> ${day.sunrise}</p>
+      <p><strong>Sunset:</strong> ${day.sunset}</p>
+    </div>
+  `).join('');
 }
+
 function updateBackground(condition) {
     const body = document.body;
   
