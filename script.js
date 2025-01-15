@@ -55,12 +55,12 @@ function generateCurrentWeatherHTML(current) {
   return `
     <h3>Current Weather</h3>
     <p><strong>Condition:</strong> ${current.conditions}</p>
-    <p><strong>Temperature:</strong> ${current.temp} °C</p>
-    <p><strong>Feels Like:</strong> ${current.feelslike} °C</p>
+    <p><strong>Temperature:</strong> ${current.temp} °F</p>
+    <p><strong>Feels Like:</strong> ${current.feelslike} °F</p>
     <p><strong>Humidity:</strong> ${current.humidity} %</p>
     <p><strong>Wind Speed:</strong> ${current.windspeed} km/h</p>
     <p><strong>Wind Direction:</strong> ${current.winddir}°</p>
-    <p><strong>Pressure:</strong> ${current.pressure} hPa</p>
+    <p><strong>Pressure:</strong> ${current.pressure} Pa</p>
     <p><strong>Visibility:</strong> ${current.visibility} km</p>
     <p><strong>UV Index:</strong> ${current.uvindex}</p>
     <p><strong>Sunrise:</strong> ${current.sunrise}</p>
@@ -73,9 +73,9 @@ function generateForecastHTML(days) {
     <div class="forecast-card">
       <h4>${day.datetime}</h4>
       <p><strong>Condition:</strong> ${day.conditions}</p>
-      <p><strong>Max Temp:</strong> ${day.tempmax} °C</p>
-      <p><strong>Min Temp:</strong> ${day.tempmin} °C</p>
-      <p><strong>Avg Temp:</strong> ${day.temp} °C</p>
+      <p><strong>Max Temp:</strong> ${day.tempmax} °F</p>
+      <p><strong>Min Temp:</strong> ${day.tempmin} °F</p>
+      <p><strong>Avg Temp:</strong> ${day.temp} °F</p>
       <p><strong>Humidity:</strong> ${day.humidity} %</p>
       <p><strong>Wind Speed:</strong> ${day.windspeed} km/h</p>
       <p><strong>Wind Gust:</strong> ${day.windgust} km/h</p>
